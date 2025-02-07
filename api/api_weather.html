@@ -40,11 +40,11 @@
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script src="../lc/pw.js"></script>
+    <!-- <script src="../lc/pw.js"></script> -->
     <script>
         $(document).ready(function () {
-            let pwd = pw;
-            console.log('pwd', pwd);
+            // let pwd = pw;
+            // console.log('pwd', pwd);
 
             // 1.bind
             const myTable = $('#myTable');
@@ -54,8 +54,10 @@
             const myTbody = myTable.find('tbody');
             console.log('myTbody', myTbody);
 
-            // 2.action
+            // 2.action 
             let url = `https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWA-05FC7086-DC11-4444-90CC-AE7FF322E528`;
+            // (需有欲抓取的"url網址-json資料", 及驗證key碼,若有必要!)
+
             $.ajax({
                 type: "get",
                 url: url,
@@ -81,6 +83,17 @@
                     // console.log('tmpStartText', tmpStartText);
                     // console.log('tmpEndText', tmpEndText);
 
+                    // tmpStarText 06 day
+                    // tmpEndText 18 night
+                    // 用變數替代 "day & night"
+
+                    let tmpTypeTime1 = 'day';
+                    if (tmpStartText == '06') {
+                        tmpTypeTime1 = 'day';
+                    } else {
+                        tmpTypeTime1 = 'night';
+                    }
+
                     let textTime1 = `${tmpDate} [${tmpStartText} - ${tmpEndText}]`;
                     // console.log('textTime1', textTime1);
                     thTime1.text(textTime1);
@@ -96,6 +109,15 @@
                     // console.log('tmpStartText', tmpStartText);
                     // console.log('tmpEndText', tmpEndText);
 
+                    // tmpStarText 06 day
+                    // tmpEndText 18 night
+                    let tmpTypeTime2 = 'day';
+                    if (tmpStartText == '06') {
+                        tmpTypeTime2 = 'day';
+                    } else {
+                        tmpTypeTime2 = 'night';
+                    }
+
                     let textTime2 = `${tmpDate} [${tmpStartText} - ${tmpEndText}]`;
                     // console.log('textTime2', textTime2);
                     thTime2.text(textTime2);
@@ -110,6 +132,17 @@
                     // console.log('tmpDate', tmpDate);
                     // console.log('tmpStartText', tmpStartText);
                     // console.log('tmpEndText', tmpEndText);
+
+                    // tmpStarText 06 day
+                    // tmpEndText 18 night
+
+                    let tmpTypeTime3 = 'day';
+
+                    if (tmpStartText == '06') {
+                        tmpTypeTime3 = 'day';
+                    } else {
+                        tmpTypeTime3 = 'night';
+                    }
 
                     let textTime3 = `${tmpDate} [${tmpStartText} - ${tmpEndText}]`;
                     // console.log('textTime3', textTime3);
@@ -130,10 +163,18 @@
                         let tmpMaxTtime0 = tmpWeatherElement[4].time[0].parameter['parameterName'];
                         let tmpMaxTtime1 = tmpWeatherElement[4].time[1].parameter['parameterName'];
                         let tmpMaxTtime2 = tmpWeatherElement[4].time[2].parameter['parameterName'];
+                        // wx (抓天氣圖示)
+                        let tmpWx0 = tmpWeatherElement[0].time[0].parameter['parameterValue'];
+                        let tmpWx1 = tmpWeatherElement[0].time[1].parameter['parameterValue'];
+                        let tmpWx2 = tmpWeatherElement[0].time[2].parameter['parameterValue'];
 
                         console.log('tmpMinTtime0', tmpMinTtime0);
                         console.log('tmpMinTtime1', tmpMinTtime1);
                         console.log('tmpMinTtime2', tmpMinTtime2);
+
+                        console.log('tmpWx0', tmpWx0);
+                        console.log('tmpWx1', tmpWx1);
+                        console.log('tmpWx2', tmpWx2);
 
                         // console.log('tmpMaxTtime0', tmpMaxTtime0);
                         // console.log('tmpMaxTtime1', tmpMaxTtime1);
@@ -151,12 +192,12 @@
                             `<tr>
                                 <td>${tmpLocationID + 1}</td>
                                 <td>${tmpLocationName}</td>
-                                <td>${tmpMinTtime0} - ${tmpMaxTtime0} 度c</td>
-                                <td>${tmpMinTtime1} - ${tmpMaxTtime1} 度c</td>
-                                <td>${tmpMinTtime2} - ${tmpMaxTtime2} 度c</td>
+                                <td>${tmpMinTtime0} - ${tmpMaxTtime0} 度c <img src="./${tmpTypeTime1}/${tmpWx0}.svg" alt=""></td>
+                                <td>${tmpMinTtime1} - ${tmpMaxTtime1} 度c <img src="./${tmpTypeTime2}/${tmpWx1}.svg" alt=""></td>
+                                <td>${tmpMinTtime2} - ${tmpMaxTtime2} 度c <img src="./${tmpTypeTime3}/${tmpWx2}.svg" alt=""></td>
                             </tr>
                         `;
-
+                        // 用變數替代 "day&night"及"icon"資料夾
                         $(myTbody).append(temText);
 
                     });
