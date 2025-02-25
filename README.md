@@ -9,5 +9,5 @@
  https://bright-66.github.io/web-portfolio/website/index.php
 
 4.api檔=>
- https://bright-66.github.io/web-portfolio/api/09.html
+ https://bright-66.github.io/web-portfolio/api/api_weather.html
  
